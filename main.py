@@ -3,9 +3,9 @@ from character import choose_stone
 from utils import convert_position
 
 def main():
-    # 石の選択
-    b_options = ["⚫", "🦍", "⬛"]
-    w_options = ["⚪", "🐑", "⬜"]
+    #  Stone selection
+    b_options = ["⚫", "🦍", "⬛", "💣", "🐧", "🎱", "🌑"]
+    w_options = ["⚪", "🐑", "⬜", "👻", "🍥", "🕊️", "🥚"]
     b_stone = choose_stone("black", b_options)
     w_stone = choose_stone("white", w_options)
 
@@ -14,7 +14,7 @@ def main():
     board = Board()
     turn = 0
 
-    print('Starting the game! Black: ●, White: ○')
+    print(f'\nStarting the game! Black: {b_stone}, White: {w_stone}')
     print('Enter coordinates in "row-column" format (e.g., a1, b3, h8)')
     print("Type 'q' to quit the game.")
     board.display(stone_display)
