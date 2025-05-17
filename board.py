@@ -1,3 +1,5 @@
+from character import choose_stone
+
 class Board:
     def __init__(self):
         self.rows = [[None] * 8 for _ in range(8)]
@@ -88,95 +90,22 @@ class Board:
                     except ValueError:
                         continue
         return valid_moves
-    
-    def display(self):
-        # Display the current board state
+
+    def display(self, stone_config):
         print('\nThe current board:')
-        print("     " + "    ".join(str(i+1) for i in range(8)))
-        print("    " + "─" * 40)
+        print("     " + "   ".join(str(i+1) for i in range(8)))
+        print("    " + "─" * 32)
+        
         for i, row in enumerate(self.rows):
-            print(f" {chr(97+i)} │", end="")
+            print(f" {chr(97+i)} │", end="")  
             for cell in row:
                 if cell == 'b':
-                    print(" ●   ", end="")  # Black stone
+                    print(f" {stone_config['b']} " , end="")  
                 elif cell == 'w':
-                    print(" ○   ", end="")  # White stone
+                    print(f" {stone_config['w']} ", end="")  
                 else:
-                    print(" ・  ", end="")  # Empty cell
-            print("│")
-        print("    " + "─" * 40)
+                    print(f" {stone_config['empty']}  ", end="")  
+            print("│")  
+        print("    " + "─" * 32)
         print()
 
-def convert_position(pos):
-    # Validate input format
-    if len(pos) != 2:
-        raise ValueError('Expected example: a1, b2, e3')
-    
-    try:
-        # Convert letter to row number (a=0, b=1, etc.)
-        row = ord(pos[0].lower()) - ord('a')
-        # Convert number to column number (1=0, 2=1, etc.)
-        col = int(pos[1]) - 1
-    except ValueError:
-        raise ValueError('Invalid place: Select from a1 to h8')
-    
-    return row, col
-    
-
-def main():
-    board = Board()
-    turn = 0
-
-    print('Starting the game! Black: ●, White: ○')
-    print('Enter coordinates in "row-column" format (e.g., a1, b3, h8)')
-    print("Type 'q' to quit the game.")
-
-    board.display()
-
-    while True:
-        color = 'b' if turn % 2 == 0 else 'w'
-        player = 'Black' if color == 'b' else 'White'
-
-        # Check if there are any valid moves
-        valid_moves = board.get_valid_moves(color)
-        if not valid_moves:
-            print(f"{player} has no valid moves. Skipping turn.")
-            turn += 1
-            continue
-
-        # Displaying all valid moves
-        valid_positions = [f"{chr(row + ord('a'))}{col + 1}" for row, col in valid_moves]
-        print(f"Valid moves: {', '.join(valid_positions)}")
-
-        move = input(f"\n{player}'s turn > ").strip()
-
-        if move.lower() == 'q':
-            break
-
-        try:
-            row, col = convert_position(move)
-            board.place_stone(row, col, color)
-            board.display()
-
-            black, white = board.count_colors()
-            print(f"Current Score - Black: {black}, White: {white}")
-
-            turn += 1
-
-        except ValueError as e:
-            print(f"Error: {str(e)}")
-            continue
-
-    black, white = board.count_colors()
-    print(f"\nResult:")
-    print(f"Black: {black}")
-    print(f"White: {white}")
-    if black > white:
-        print("Black wins！")
-    elif white > black:
-        print("White wins！")
-    else:
-        print("Draw！")
-
-if __name__ == '__main__':
-    main()  
