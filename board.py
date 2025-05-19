@@ -1,5 +1,3 @@
-from character import choose_stone
-
 class Board:
     def __init__(self):
         self.rows = [[None] * 8 for _ in range(8)]

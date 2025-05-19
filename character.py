@@ -5,7 +5,7 @@ def choose_stone(color, options):
     
     while True:
         try:
-            choice = int(input("Enter number (1-3): "))
+            choice = int(input("Enter number (1-7): "))
             if 1 <= choice <= len(options):
                 return options[choice - 1]
             else:

@@ -1,11 +1,11 @@
 from board import Board
 from character import choose_stone
-from utils import convert_position
+from position import convert_position
 
 def main():
     #  Stone selection
     b_options = ["⚫", "🦍", "⬛", "💣", "🐧", "🎱", "🌑"]
-    w_options = ["⚪", "🐑", "⬜", "👻", "🍥", "🕊️", "🥚"]
+    w_options = ["⚪", "🐑", "⬜", "👻", "🍥", "🕊️ ", "🥚"]
     b_stone = choose_stone("black", b_options)
     w_stone = choose_stone("white", w_options)
 
