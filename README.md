@@ -1,13 +1,13 @@
 # COMP9001
 
-# 🦍🐑 Customizable Othello Game (Command Line Version)
+#  Customizable Othello Game (Command Line Version)
 
 This is a Python-based command line Othello (Reversi) game where players can customize the appearance of their stones using fun emojis or symbols.  
 It's a two-player game played on an 8x8 board with standard Reversi rules.
 
 ---
 
-## 🎮 Features
+##  Features
 
 - 8x8 Reversi board
 - Turn-based gameplay (Black vs White)
@@ -19,7 +19,7 @@ It's a two-player game played on an 8x8 board with standard Reversi rules.
 
 ---
 
-## 🧩 How to Play
+##  How to Play
 
 1. When the game starts, each player selects their preferred stone design from a list of emoji options.
 2. Players take turns entering a position in the format `rowcolumn` (e.g., `d3`, `e6`).
@@ -30,7 +30,7 @@ It's a two-player game played on an 8x8 board with standard Reversi rules.
 
 ---
 
-## 🕹 Example
+##  Example
 
 BLACK player, choose your stone:
 	1. ⚫
@@ -65,14 +65,14 @@ The current board:
 
 ---
 
-## ▶ Requirements
+##  Requirements
 
 - Python 3.x
 - No external libraries needed
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 1. Clone or download the repository
 2. Make sure all files (`main.py`, `board.py`, `position.py`, `character.py`) are in the same folder
@@ -87,3 +87,8 @@ project_folder/
 ├── character.py       # Stone selection interface
 ├── position.py           # Helper functions (e.g., coordinate conversion)
 └── README.md          # This file
+
+##  Source Code
+
+You can find the complete source code for this project on GitHub:  
+-> [https://github.com/TaijuW/COMP9001](https://github.com/TaijuW/COMP9001)
