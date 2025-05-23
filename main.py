@@ -20,29 +20,32 @@ def main():
     board.display(stone_display)
 
     while True:
-        #  Compute both players’ valid moves 
+        #　Calculate valid moves for both players
         moves_b = board.get_valid_moves('b')
         moves_w = board.get_valid_moves('w')
 
-        #  If neither can move, exit immediately
+        # If neither player can move, end the game immediately
         if not moves_b and not moves_w:
             break
 
-        #  Otherwise pick current player as before ─
-        color = 'b' if turn % 2 == 0 else 'w'
-        player = 'Black' if color == 'b' else 'White'
+        # Determine the current player
+        color       = 'b' if turn % 2 == 0 else 'w'
+        player      = 'Black' if color == 'b' else 'White'
         valid_moves = moves_b if color == 'b' else moves_w
 
-        #  If this player has no moves, skip without printing at game end 
+        # If this player has no valid moves, skip 
         if not valid_moves:
+            print(f"{player} has no valid moves. Skipping turn.")
             turn += 1
             continue
 
+        # Normal turn flow: show options → get input → update board → display score → advance turn
         valid_positions = [
-            f"{chr(row + ord('a'))}{col + 1}"
-            for row, col in valid_moves
+            f"{chr(r + ord('a'))}{c + 1}"
+            for r, c in valid_moves
         ]
         print(f"Valid moves: {', '.join(valid_positions)}")
+
         move = input(f"\n{player}'s turn > ").strip().lower()
         if move == 'q':
             break
@@ -59,6 +62,7 @@ def main():
         except ValueError as e:
             print(f"Error: {e}")
             continue
+
 
     #  end of game, show final result 
     black, white = board.count_colors()
