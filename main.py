@@ -13,30 +13,38 @@ def main():
 
     board = Board()
     turn = 0
+    pass_count = 0       # count how many turns in a row had no moves
 
     print(f'\nStarting the game! Black: {b_stone}, White: {w_stone}')
-    print('Enter coordinates in "row-column" format (e.g., a1, b3, h8)')
-    print("Type 'q' to quit the game.")
+
     board.display(stone_display)
 
     while True:
+        #  Compute both players’ valid moves 
+        moves_b = board.get_valid_moves('b')
+        moves_w = board.get_valid_moves('w')
+
+        #  If neither can move, exit immediately
+        if not moves_b and not moves_w:
+            break
+
+        #  Otherwise pick current player as before ─
         color = 'b' if turn % 2 == 0 else 'w'
         player = 'Black' if color == 'b' else 'White'
+        valid_moves = moves_b if color == 'b' else moves_w
 
-        # Check if there are any valid moves
-        valid_moves = board.get_valid_moves(color)
+        #  If this player has no moves, skip without printing at game end 
         if not valid_moves:
-            print(f"{player} has no valid moves. Skipping turn.")
             turn += 1
             continue
 
-        # Displaying all valid moves
-        valid_positions = [f"{chr(row + ord('a'))}{col + 1}" for row, col in valid_moves]
+        valid_positions = [
+            f"{chr(row + ord('a'))}{col + 1}"
+            for row, col in valid_moves
+        ]
         print(f"Valid moves: {', '.join(valid_positions)}")
-
-        move = input(f"\n{player}'s turn > ").strip()
-
-        if move.lower() == 'q':
+        move = input(f"\n{player}'s turn > ").strip().lower()
+        if move == 'q':
             break
 
         try:
@@ -48,21 +56,19 @@ def main():
             print(f"Current Score - Black: {black}, White: {white}")
 
             turn += 1
-
         except ValueError as e:
-            print(f"Error: {str(e)}")
+            print(f"Error: {e}")
             continue
 
+    #  end of game, show final result 
     black, white = board.count_colors()
-    print(f"\nResult:")
-    print(f"Black: {black}")
-    print(f"White: {white}")
+    print(f"\nGame over! Final Score — Black: {black}, White: {white}")
     if black > white:
-        print("Black wins！")
+        print("Black wins!")
     elif white > black:
-        print("White wins！")
+        print("White wins!")
     else:
-        print("Draw！")
+        print("Draw!")
 
 if __name__ == '__main__':
     main()  

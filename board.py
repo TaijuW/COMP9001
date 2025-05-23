@@ -8,38 +8,50 @@ class Board:
         self.rows[center+1][center+1] = 'w'
 
     def is_valid_move(self, row, col, color):
+        # Check if the coordinates are within the 8×8 board
+        if not (0 <= row < len(self.rows) and 0 <= col < len(self.rows[0])):
+            raise ValueError("Move out of bounds.")
+
+        # Ensure the target square is empty
         if self.rows[row][col] is not None:
-            raise ValueError('This place is alrady taken.')
-    
+            raise ValueError("This place is already taken.")
+
+        # Prepare all eight directions to scan for flips
         directions = [
-            (-1, -1), (-1, 0), (-1, 1),
-            (0, -1), (0, 1), (1, -1),
-            (1, 0), (1, 1)
+            (-1, -1), (-1,  0), (-1,  1),
+            ( 0, -1),           ( 0,  1),
+            ( 1, -1), ( 1,  0), ( 1,  1),
         ]
 
         valid = False
         for dx, dy in directions:
-            # Check adjacent squares
+            # start at the adjacent square in this direction
             x, y = col + dx, row + dy
+
+            # skip if out of bounds or empty
             if not (0 <= x < 8 and 0 <= y < 8):
                 continue
             if self.rows[y][x] is None:
                 continue
 
-            # Check if opponent's stone is adjacent
+            # must be opponent’s stone first
             if self.rows[y][x] != color:
+                # keep moving in the same direction
                 x += dx
                 y += dy
                 while 0 <= x < 8 and 0 <= y < 8 and self.rows[y][x] is not None:
+                    # if we find our own stone, it’s a valid flip
                     if self.rows[y][x] == color:
                         valid = True
                         break
                     x += dx
                     y += dy
 
+        # If no direction yielded a flip, it’s not a legal move
         if not valid:
-            raise ValueError('You cannot place the stone here.')
-        return valid
+            raise ValueError("No discs to flip; invalid move.")
+
+        return True
     
     def place_stone(self, row, col, color):
         if self.is_valid_move(row, col, color):
